@@ -1,0 +1,33 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags?: string[];
+  featured?: boolean;
+}
+
+const { href, title, description, pubDate, tags = [], featured = false } = Astro.props;
+const formattedDate = pubDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric"
+});
+// The meta row shows the post's own topic — never a fact about the template.
+const [kicker, ...restTags] = tags;
+---
+
+<a class:list={["post-card", { featured }]} href={href}>
+  <div class="post-meta">
+    <span>{formattedDate}</span>
+    {kicker && <span>{kicker}</span>}
+  </div>
+  <h2 class="article-title">{title}</h2>
+  <p>{description}</p>
+  {restTags.length > 0 && (
+    <div class="tag-list">
+      {restTags.slice(0, 4).map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+  )}
+</a>

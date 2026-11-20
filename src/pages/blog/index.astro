@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { siteMeta } from "../../site";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title={`Archive | ${siteMeta.title}`} description={`Every post published on ${siteMeta.title}.`}>
+  <section class="section">
+    <span class="eyebrow">Archive</span>
+    <h1 class="section-title">All posts</h1>
+    <div class="archive-list">
+      {posts.map((post) => (
+        <a class="archive-item" href={`/blog/${post.id}/`}>
+          <div class="post-meta">
+            <span>{post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
+            <span>{post.data.tags.join(" . ")}</span>
+          </div>
+          <h2 class="article-title">{post.data.title}</h2>
+          <p>{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,15 @@
+{
+  "app_name": "home-espresso-grinder-beginner-blog",
+  "github_repo": "thc2mdma/home-espresso-grinder-beginner-blog",
+  "subdomain": "home-espresso-grinder-beginner-blog",
+  "app_internal_port": 8000,
+  "build_subdir": "",
+  "dockerfile_path": "Dockerfile",
+  "need_postgres": false,
+  "need_pgvector": false,
+  "need_redis": false,
+  "need_litellm": false,
+  "need_traefik": true,
+  "need_websocket": false,
+  "app_secrets": []
+}
